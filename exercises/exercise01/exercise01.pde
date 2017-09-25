@@ -7,7 +7,7 @@ final color NO_CLICK_FILL_COLOR = color(250, 100, 100); //pinkish colour
 final color CLICK_FILL_COLOR = color(100, 100, 250); //blue colour
 color BACKGROUND_COLOR = color(250,150,150); //default background colour (light pink)
 final color STROKE_COLOR = color(250, 150, 150); //light pink colour for the contour
-int CIRCLE_SIZE = 50; //CHANGED diameter of the circle is now variable
+int circle_size = 50; //CHANGED diameter of the circle is now variable
 
 int circleX; //circle position variable in X
 int circleY; //circle position variable in Y
@@ -29,16 +29,16 @@ void draw() { //draw method
     //If the mouse is within the boundaries of the moving circle (given by its radius),
     //the fill of the cirlce will go from pink to blue.
     //also, the circle will increasignly get bigger the more your mouse is on the circle
-    if (dist(mouseX, mouseY, circleX, circleY) < CIRCLE_SIZE/2) {
+    if (dist(mouseX, mouseY, circleX, circleY) < circle_size/2) {
     fill(CLICK_FILL_COLOR);
-      if(CIRCLE_SIZE<= 100) //CHANGED the more you mouse is on the cirle, the bigger it gets
-      CIRCLE_SIZE += 1;
+      if (circle_size <= 150) //CHANGED the more you mouse is on the cirle, the bigger it gets
+      circle_size += 1;
   }
     //else it will just stay pink
   else {
     fill(NO_CLICK_FILL_COLOR);
   }
-  ellipse(circleX, circleY, CIRCLE_SIZE, CIRCLE_SIZE); //drawing the circle
+  ellipse(circleX, circleY, circle_size, circle_size); //drawing the circle
   circleX += circleVX; //moving the circle in x
   circleY += circleVY; //moving the circle in y
   
@@ -46,10 +46,10 @@ void draw() { //draw method
   //direction in x and in y
   
   //to delimit the edges of the circle, we add and subtract the radius of the circle
-  if (circleX + CIRCLE_SIZE/2 > width || circleX - CIRCLE_SIZE/2 < 0) {
+  if (circleX + circle_size/2 > width || circleX - circle_size/2 < 0) {
     circleVX = -circleVX; ////circle moves in opposite direction in x
   }
-  if (circleY + CIRCLE_SIZE/2 > height || circleY - CIRCLE_SIZE/2 < 0) {
+  if (circleY + circle_size/2 > height || circleY - circle_size/2 < 0) {
     circleVY = -circleVY; //circle moves in opposite direction in y
     
   }
@@ -69,6 +69,6 @@ void mousePressed() { //mousePressed method
   }
   //CHANGED everytime mouse is pressed, circle is back to original size
   if(mousePressed){
-    CIRCLE_SIZE = 50;
+    circle_size = 50;
 }
 }
