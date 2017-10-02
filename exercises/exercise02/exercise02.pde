@@ -4,6 +4,9 @@ int numStatic = 1000;
 int staticSizeMin = 1;
 int staticSizeMax = 3;
 color staticColor = color(200);
+float randomNumber1 = random(255); //CHANGED added 3 new ranom numbers to be able to modify
+float randomNumber2 = random(255); //the paddle colour everytime you click your mouse
+float randomNumber3 = random(255);
 
 //variables for the paddle (position x and y, speed x, colour)
 int paddleX;
@@ -19,7 +22,7 @@ int ballX;
 int ballY;
 float ballVX;
 float ballVY;
-float ballSpeed = random(2,12); //The speed of the ball will be randomily generated instead of constant
+float ballSpeed = random(2,12); //CHANGED The speed of the ball will be randomily generated instead of constant
 int ballSize = 16;
 color ballColor = color(255);
 
@@ -95,10 +98,18 @@ void updateBall() {
 //drawPaddle() method
 //displays the shape representing the paddle
 void drawPaddle() {
-  rectMode(CENTER);
+  rectMode(CORNER); //CHANGED
   noStroke();
-  fill(paddleColor);
-  rect(paddleX, paddleY, paddleWidth, paddleHeight);
+  for(int i = 0; i == paddleWidth; i+=4){ //CHANGED for loop to make a rainbow paddle
+      paddleColor = color(randomNumber1,randomNumber2,randomNumber3); //produces random colors for the paddle
+      fill(paddleColor);
+      rect(i, 16, 4, paddleHeight);
+  }
+}
+void handleBallOffScreen(){
+  
+  
+  
 }
 
 //drawBall() method
