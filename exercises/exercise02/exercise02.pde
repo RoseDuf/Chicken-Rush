@@ -93,6 +93,7 @@ void updateBall() {
   handleBallHitPaddle(); //calling handleBallHitPaddle()
   handleBallHitWall(); //calling handleBallHitWall()
   handleBallOffBottom(); //calling handleBallOffBottom()
+  handleBallOffScreen(); //CHANGED calling the new handleBallOffScreen() method
 }
 
 //drawPaddle() method
@@ -106,9 +107,29 @@ void drawPaddle() {
       rect(i, 16, 4, paddleHeight);
   }
 }
-void handleBallOffScreen(){
-  
-  
+//CHANGED this method will change the colour of the ball whenever it hits a wall of the window at a random colour
+void handleBallOffScreen(){ 
+  if (ballX + ballSize/2 == width){ //Right wall
+    randomNumber1 = random(255);
+    randomNumber2 = random(255);
+    randomNumber3 = random(255);
+    ballColor = color(randomNumber1,randomNumber2,randomNumber3);
+    fill(ballColor);
+  }
+  if (ballX - ballSize/2 == 0){ //Left wall
+    randomNumber1 = random(255);
+    randomNumber2 = random(255);
+    randomNumber3 = random(255);
+    ballColor = color(randomNumber1,randomNumber2,randomNumber3);
+    fill(ballColor);
+  }
+  if (ballY - ballSize/2 == 0){ //Top wall
+    randomNumber1 = random(255);
+    randomNumber2 = random(255);
+    randomNumber3 = random(255);
+    ballColor = color(randomNumber1,randomNumber2,randomNumber3);
+    fill(ballColor);
+  }
   
 }
 
