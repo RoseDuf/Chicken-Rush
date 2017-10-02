@@ -35,11 +35,11 @@ color ballColor = color(255);
 void setup() {
   size(640, 480); //size of the window
 
-  setupPaddle(); //calling setupPaddle() method
-  setupBall(); //calling setupBall() method
+  setupPaddle(); //calling setupPaddle() function
+  setupBall(); //calling setupBall() function
 }
 
-//setupPaddle() method
+//setupPaddle() function
 //gives us the dimensions and speed of the paddle
 void setupPaddle() {
   paddleX = width/2; //position of the paddle in x depends on its center
@@ -47,7 +47,7 @@ void setupPaddle() {
   paddleVX = 0; //paddle velocity
 }
 
-//setupBall() method
+//setupBall() function
 //gives us the dimensions and speed of the ball
 void setupBall() {
   ballX = width/2; //position of the ball in x depends on its center
@@ -56,19 +56,19 @@ void setupBall() {
   ballVY = ballSpeed; //ball velocity in y
 }
 
-//draw() method
+//draw() function
 void draw() {
   //CHANGED took off background to create a fun trail effect
 
-  drawStatic(); //calling drawStatic() method
+  drawStatic(); //calling drawStatic() function
   drawStatic2();
 
-  updatePaddle(); //calling updatePaddle() method
-  updateBall(); //calling updateBall(0) method
+  updatePaddle(); //calling updatePaddle() function
+  updateBall(); //calling updateBall(0) function
 
-  drawPaddle(); //calling drawPaddle() method
-  drawBall(); //calling drawBall() method
-  counter();
+  drawPaddle(); //calling drawPaddle() function
+  drawBall(); //calling drawBall() function
+ // counter(); //CHANGED i'd call the counter function in draw?
 }
 
 //drawStatic() function
