@@ -17,9 +17,9 @@ color paddleColor = color(255);
 //variables for the ball (position x and y,speed x and y, colour)
 int ballX;
 int ballY;
-int ballVX;
-int ballVY;
-int ballSpeed = 5;
+float ballVX;
+float ballVY;
+float ballSpeed = random(2,12); //The speed of the ball will be randomily generated instead of constant
 int ballSize = 16;
 color ballColor = color(255);
 
@@ -115,7 +115,12 @@ void drawBall() {
 void handleBallHitPaddle() {
   if (ballOverlapsPaddle()) {
     ballY = paddleY - paddleHeight/2 - ballSize/2; //when ball touches paddle, the ball will move in the Y direction at opposit speed
+    ballSpeed = random(2,12); //CHANGED each time ball hits paddle, speed randomizes in X and Y
+    ballVY = ballSpeed;
+    ballVX = ballSpeed; //HOW THE DOES THIS WORK
     ballVY = -ballVY;
+    
+    
   }
 }
 
@@ -152,7 +157,7 @@ void handleBallHitWall() {
     ballVX = -ballVX;
   }
 
-  if (ballY - ballSize/2 < 0) { //if ball hits the wall, it will bouced back in the opposite direction withe the same speed in the Y axis
+  if (ballY - ballSize/2 < 0) { //if ball hits the wall, it will bouced back in the opposite direction with the same speed in the Y axis
     ballY = 0 + ballSize/2;
     ballVY = -ballVY;
   }
