@@ -8,7 +8,7 @@ int staticSizeMin = 1;
 int staticSizeMax = 3;
 color staticColor = color(200);
 float randomNumber1 = random(255); //CHANGED added 3 new ranom numbers to be able to modify
-float randomNumber2 = random(255); //the paddle colour everytime you click your mouse
+float randomNumber2 = random(255); //the ball colour
 float randomNumber3 = random(255);
 
 //variables for the paddle (position x and y, speed x, colour)
@@ -56,7 +56,7 @@ void setupBall() {
 
 //draw() method
 void draw() {
-  background(backgroundColor); //include background first
+  //CHANGED took off background to create a fun trail effect
 
   drawStatic(); //calling drawStatic() method
 
@@ -67,7 +67,7 @@ void draw() {
   drawBall(); //calling drawBall() method
 }
 
-//drawStatic(0) method
+//drawStatic() function
 //gives us the behaviour for the static that will be present with the background
 void drawStatic() {
   for (int i = 0; i < numStatic; i++) { //loop from 0 to 999
@@ -96,21 +96,30 @@ void updateBall() {
   handleBallHitPaddle(); //calling handleBallHitPaddle()
   handleBallHitWall(); //calling handleBallHitWall()
   handleBallOffBottom(); //calling handleBallOffBottom()
-  handleBallOffScreen(); //CHANGED calling the new handleBallOffScreen() method
+  handleBallOffScreen(); //CHANGED calling the new handleBallOffScreen() function
 }
 
-//drawPaddle() method
+//drawPaddle() function
 //displays the shape representing the paddle
 void drawPaddle() {
-  rectMode(CORNER); //CHANGED
+  rectMode(CENTER); 
   noStroke();
-  for(int i = 0; i == paddleWidth; i+=4){ //CHANGED for loop to make a rainbow paddle
-      paddleColor = color(randomNumber1,randomNumber2,randomNumber3); //produces random colors for the paddle
-      fill(paddleColor);
-      rect(i, 16, 4, paddleHeight);
+  rect(paddleX, paddleY, paddleWidth, paddleHeight);
+  fill(paddleColor);
+
+    for(int i=0; i <= paddleWidth ; i+=5){ //CHANGED for loop to make a rainbow paddle
+      //produces random colors for the paddle
+      float number1 = random(255); //CHANGED added 3 new ranom numbers to be able to modify
+      float number2 = random(255); //the paddle colour
+      float number3 = random(255);
+      
+      int color1 = color(number1,number2,number3);
+      fill(color1);
+      rect(paddleX - paddleWidth/2 +i, paddleY, 5, paddleHeight); //sill produce glittery striped paddle
+      
   }
 }
-//CHANGED this method will change the colour of the ball whenever it hits a wall of the window at a random colour
+//CHANGED this function will change the colour of the ball whenever it hits a wall of the window at a random colour
 void handleBallOffScreen(){ 
   if (ballX + ballSize/2 == width){ //Right wall
     randomNumber1 = random(255);
@@ -136,7 +145,7 @@ void handleBallOffScreen(){
   
 }
 
-//drawBall() method
+//drawBall() function
 //displays the shape representing the ball
 void drawBall() {
   rectMode(CENTER); 
@@ -145,21 +154,25 @@ void drawBall() {
   rect(ballX, ballY, ballSize, ballSize);
 }
 
-//handleBallHitPaddle() method
+//handleBallHitPaddle() function
 //behaviour if the ball hits the paddle
 void handleBallHitPaddle() {
   if (ballOverlapsPaddle()) {
     ballY = paddleY - paddleHeight/2 - ballSize/2; //when ball touches paddle, the ball will move in the Y direction at opposit speed
-    ballSpeed = random(2,12); //CHANGED each time ball hits paddle, speed randomizes in X and Y
+    ballSpeed = random(2,14); //CHANGED each time ball hits paddle, speed randomizes in X and Y
     ballVY = ballSpeed;
-    ballVX = ballSpeed; //HOW THE DOES THIS WORK
     ballVY = -ballVY;
     
-    
+    if (ballVX < 0){
+      ballVX = -ballSpeed; //ball speed in X will change at the same speed as in Y
+    }
+    else{
+      ballVX = ballSpeed;
+    }
   }
 }
 
-boolean ballOverlapsPaddle() { //calling ballOverlapsPaddle() method
+boolean ballOverlapsPaddle() { //calling ballOverlapsPaddle() function
   if (ballX - ballSize/2 > paddleX - paddleWidth/2 && ballX + ballSize/2 < paddleX + paddleWidth/2) { //makes sure that the contact between the paddle and the ball is distiguished by their edges
     if (ballY > paddleY - paddleHeight/2) {
       return true;
@@ -181,7 +194,7 @@ boolean ballOffBottom() { //calling  ballOffBottom() method
   return (ballY - ballSize/2 > height);
 }
 
-//handleBallHitWall() method
+//handleBallHitWall() function
 //ball behaviour if it hits the sides of the window
 void handleBallHitWall() {
   if (ballX - ballSize/2 < 0) { //if ball hits the wall, it will bouced back in the opposite direction withe the same speed in the X axis
@@ -197,8 +210,11 @@ void handleBallHitWall() {
     ballVY = -ballVY;
   }
 }
+void counter(){
+  
+}
 
-//keyPressed() method
+//keyPressed() function
 //when the left and right keys are pressed, the paddle will move to the right ow the left 
 void keyPressed() {
   if (keyCode == LEFT) { //if key is pressed to the left, the paddle will move at negative speed in the X axis
@@ -208,7 +224,7 @@ void keyPressed() {
   }
 }
 
-//keyReleased() method
+//keyReleased() function
 //if the keys are released the paddle will cease to move
 void keyReleased() {
   if (keyCode == LEFT && paddleVX < 0) {
