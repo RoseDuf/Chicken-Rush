@@ -3,10 +3,12 @@
 
 //variables for the backgroud with static
 color backgroundColor = color(0);
-int numStatic = 1000;
+int numStatic = 6000; //CHANGED static is 3 times more powerful/fast
 int staticSizeMin = 1;
 int staticSizeMax = 3;
-color staticColor = color(200);
+color staticColor = color(0); //CHANGED added varibles for another static effect
+int numStatic2 = 50;
+color staticColor2 = color(200);
 float randomNumber1 = random(255); //CHANGED added 3 new ranom numbers to be able to modify
 float randomNumber2 = random(255); //the ball colour
 float randomNumber3 = random(255);
@@ -59,25 +61,38 @@ void draw() {
   //CHANGED took off background to create a fun trail effect
 
   drawStatic(); //calling drawStatic() method
+  drawStatic2();
 
   updatePaddle(); //calling updatePaddle() method
   updateBall(); //calling updateBall(0) method
 
   drawPaddle(); //calling drawPaddle() method
   drawBall(); //calling drawBall() method
+  counter();
 }
 
 //drawStatic() function
 //gives us the behaviour for the static that will be present with the background
 void drawStatic() {
-  for (int i = 0; i < numStatic; i++) { //loop from 0 to 999
+  for (int i = 0; i < numStatic; i++) { //loop from 0 to 5999
     float x = random(0, width); //random location in x
     float y = random(0, height); //random location in y
     float staticSize = random(staticSizeMin, staticSizeMax); //random size
-    fill(staticColor); //greyish colour
+    fill(staticColor); //black colour
     rect(x, y, staticSize, staticSize); //draw the many rectangles to produce static effect
   }
 }
+//CHANGED added another static to do a glittery star effect
+void drawStatic2() {
+  for (int i = 0; i < numStatic2; i++) { //loop from 0 to 49
+    float x = random(0, width); //random location in x
+    float y = random(0, height); //random location in y
+    float staticSize = random(staticSizeMin, staticSizeMax); //random size
+    fill(staticColor2); //greyish colour
+    rect(x, y, staticSize, staticSize); //draw the many rectangles to produce static effect
+  }
+}
+
 
 //updatePaddle()
 //gives us the behaviour of the paddle
@@ -210,9 +225,7 @@ void handleBallHitWall() {
     ballVY = -ballVY;
   }
 }
-void counter(){
-  
-}
+
 
 //keyPressed() function
 //when the left and right keys are pressed, the paddle will move to the right ow the left 
@@ -231,5 +244,25 @@ void keyReleased() {
     paddleVX = 0;
   } else if (keyCode == RIGHT && paddleVX > 0) {
     paddleVX = 0;
+  } 
+}
+
+void counter(){ //attempting to make a counter
+
+  PFont f = createFont("Arial",16,true); // Arial, 16 point, anti-aliasing on
+  textFont(f,36);
+  fill(255);
+  
+  for(int i=0; i<=20;i++){
+    if (ballOffBottom()){
+      i-=1;
+      print("i");
+    }
+    if (ballOverlapsPaddle()){
+      i+=1;
+      print("i");
+    }
   }
 }
+  
+  
