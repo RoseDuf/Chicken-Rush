@@ -1,3 +1,6 @@
+//This program will produce a game with a paddle and a ball. The ball will bouce on the paddle and on the top, right, left walls.
+//In general, this is like a one player "PONG" game
+
 //variables for the backgroud with static
 color backgroundColor = color(0);
 int numStatic = 1000;
