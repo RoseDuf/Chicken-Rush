@@ -3,9 +3,11 @@
  //initialize variables
  int x;
  int y;
- int vx;
- int vy;
+ float vx; //CHANGED vx to float
+ float vy; //and vx
  int size;
+ float randomvx; //CHANGED added new variable for random speed in x 
+ float randomvy; //and in y
  color fillColor;
  color defaultColor;
  color hoverColor;
@@ -33,16 +35,34 @@
  
  //creating new function handleBounce()
  void handleBounce() {
+   //CHANGED when the ball hits the wall it will move at a random speed x
    if (x - size/2 < 0 || x + size/2 > width) { 
-    vx = -vx; //if ball's touches a wall, it will move at negative speed in x
+     randomvx = random(2,10);
+     if(vx < 0){
+       vx = randomvx;
+     }
+     else {
+       vx = -randomvx;
+     }
+   //if ball's touches a wall, it will move at negative speed in x
    }
    
+   //CHANGED when the ball hits the wall it will move at a random speed in y
    if (y - size/2 < 0 || y + size/2 > height) {
-     vy = -vy; //if ball's touches a wall, it will move at negative speed in y
+     randomvy = random(2,10);
+     if(vy < 0){
+       vy = randomvy;
+     }
+     else {
+       vy = -randomvy;
+     }
+   //if ball's touches a wall, it will move at negative speed in y
    }
    
    x = constrain(x,size/2,width-size/2); //constrain the boundarys of the position in x
    y = constrain(y,size/2,height-size/2); //and y to make the edges of the ball the limits
+   
+   
  }
  
  //creating new function handleMouse()
