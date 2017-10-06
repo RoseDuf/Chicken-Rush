@@ -1,19 +1,19 @@
- class Bouncer {
-  
+class Bouncer {
  //initialize variables
- int x;
- int y;
+ float x;
+ float y;
  float vx; //CHANGED vx to float
  float vy; //and vx
- int size;
+ float size;
  float randomvx; //CHANGED added new variable for random speed in x 
  float randomvy; //and in y
+ float randomsize; //CHANGED added new variable for random size 
  color fillColor;
  color defaultColor;
  color hoverColor;
  
  //initializing Bouncer object 
- Bouncer(int tempX, int tempY, int tempVX, int tempVY, int tempSize, color tempDefaultColor, color tempHoverColor) {
+ Bouncer(int tempX, int tempY, float tempVX, float tempVY, float tempSize, color tempDefaultColor, color tempHoverColor) {
    x = tempX; //positions in x and y
    y = tempY;
    vx = tempVX; //speeds in x and y
@@ -83,5 +83,13 @@
    noStroke();
    fill(fillColor);
    ellipse(x,y,size,size);
+   
  }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 }
