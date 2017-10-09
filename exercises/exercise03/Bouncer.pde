@@ -31,6 +31,7 @@ class Bouncer {
    
    handleBounce(); //calling handleBounce()
    handleMouse(); //calling handleMouse()
+   mouseClicked(); //CHANGED calling mouseClicked()
  }
  
  //creating new function handleBounce()
@@ -85,11 +86,16 @@ class Bouncer {
    ellipse(x,y,size,size);
    
  }
- 
- 
- 
- 
- 
- 
- 
+ //CHANGED created a mouseClicked() function tha will make the  bouncer go faster
+ void mouseClicked(){
+   if (dist(mouseX,mouseY,x,y) < size/2) { 
+     if(mousePressed){
+       if(size>=50){
+          vx = 2*vx;
+          vy = 2*vx;
+       } 
+     }
+    }
+  }
 }
+ 
