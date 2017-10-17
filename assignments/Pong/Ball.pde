@@ -80,8 +80,12 @@ class Ball {
   // something like an int (e.g. 0 = not off, 1 = off left, 2 = off right)
   // or a String (e.g. "ON SCREEN", "OFF LEFT", "OFF RIGHT")
   
-  boolean isOffScreen() {
-    return (x + SIZE/2 < 0 || x - SIZE/2 > width);
+  boolean isOffScreenRight() {
+    return (x - SIZE/2 > width);
+    
+  }
+  boolean isOffScreenLeft(){
+    return (x + SIZE/2 < 0);
   }
 
   // collide(Paddle paddle)
@@ -101,7 +105,7 @@ class Ball {
     if (insideLeft && insideRight && insideTop && insideBottom) {
       // If it was moving to the left
       if (vx < 0) {
-        // Reset its position to align with the right side of the paddle
+        // Reset its position to awlign with the right side of the paddle
         x = paddle.x + paddle.WIDTH/2 + SIZE/2;
       } else if (vx > 0) {
         // Reset its position to align with the left side of the paddle

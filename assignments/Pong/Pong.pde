@@ -13,6 +13,13 @@
 Paddle leftPaddle;
 Paddle rightPaddle;
 Ball ball;
+Score p1;
+Score p2;
+
+int num1 = 0;
+int num2 = 0;
+color p1color = color(255,99,71);
+color p2color = color(65,105,225);
 
 // The distance from the edge of the window a paddle should be
 int PADDLE_INSET = 8;
@@ -39,6 +46,10 @@ void setup() {
 
   // Create the ball at the centre of the screen
   ball = new Ball(width/2, height/2);
+  
+  //CHANGED added two scoring objects, one red and one blue
+  p1 = new Score(num1,320,200, p1color); 
+  p2 = new Score(num2,320,280, p2color);
 }
 
 // draw()
@@ -54,13 +65,26 @@ void draw() {
   leftPaddle.update();
   rightPaddle.update();
   ball.update();
-
+  
+  //CHANGED if ball reaches right side of screen, a point for
+  //player 1 is given
+ if(ball.isOffScreenRight()){
+    p1.setNum(num1);
+    num1 = p1.getNum()+1; //increment score by 1
+  }
+  //CHANGED if ball reaches left side of screen, a point for
+  //player 2 is given
+  if(ball.isOffScreenLeft()){
+    p2.setNum(num2);
+    num2 = p2.getNum()+1; //increment score by 1
+  }
+  
   // Check if the ball has collided with either paddle
   ball.collide(leftPaddle);
   ball.collide(rightPaddle);
 
   // Check if the ball has gone off the screen
-  if (ball.isOffScreen()) {
+  if (ball.isOffScreenRight()||ball.isOffScreenLeft()) {
     // If it has, reset the ball
     ball.reset();
   }
@@ -69,6 +93,11 @@ void draw() {
   leftPaddle.display();
   rightPaddle.display();
   ball.display();
+  
+  //CHANGED display scores
+  p1.display();
+  p2.display();
+  
 }
 
 // keyPressed()
