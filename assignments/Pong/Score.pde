@@ -8,7 +8,7 @@ class Score{
   /////////////// Properties ///////////////
   
   //variables for the text
-  int num;
+  String num;
   float x;
   float y;
   int point = 10;
@@ -16,19 +16,31 @@ class Score{
   color player_color;
   
   //Score constructor 
-  Score(int _num, float _x, float _y, color c){
+  Score(String _num, float _x, float _y, color c){
     num = _num;
     x = _x;
     y = _y;
     player_color = c;
   }
   
-  //Score Mutators (getter and setter for number displayed)
-  int getNum(){
+  //Score Mutators (getters and setters)
+  String getNum(){
     return num;
   }
-  void setNum(int n){
+  void setNum(String n){
     num = n;
+  }
+  float getX(){
+    return x;
+  }
+  void setX(float _x){
+    x = _x;
+  }
+  float getY(){
+    return y;
+  }
+  void setY(float _y){
+    y = _y;
   }
   
   //Display function

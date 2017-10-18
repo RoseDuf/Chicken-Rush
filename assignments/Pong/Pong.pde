@@ -16,8 +16,8 @@ Ball ball;
 Score p1;
 Score p2;
 
-int num1 = 0;
-int num2 = 0;
+String num1 = "0";
+String num2 = "0";
 color p1color = color(255,99,71);
 color p2color = color(65,105,225);
 
@@ -48,8 +48,8 @@ void setup() {
   ball = new Ball(width/2, height/2);
   
   //CHANGED added two scoring objects, one red and one blue
-  p1 = new Score(num1,320,200, p1color); 
-  p2 = new Score(num2,320,280, p2color);
+  p1 = new Score(num1,309,223, p1color); 
+  p2 = new Score(num2,309,280, p2color);
 }
 
 // draw()
@@ -68,15 +68,43 @@ void draw() {
   
   //CHANGED if ball reaches right side of screen, a point for
   //player 1 is given
+  
  if(ball.isOffScreenRight()){
     p1.setNum(num1);
-    num1 = p1.getNum()+1; //increment score by 1
+    int temp;
+    temp = Integer.parseInt(p1.getNum())+1; //increment score by 1
+    num1 = Integer.toString(temp);
+    if (temp == 11){ //CHANGED if player 1 gets 10 points, he/she wins
+     num1 = "WINNER"; //change text to show winner
+     p1.setNum(num1);
+     p1.getNum();
+     p1.setX(258); //reposition text to center
+     p1.getX();
+     ball.stop(); //game ends so ball stops moving
+   }
   }
   //CHANGED if ball reaches left side of screen, a point for
   //player 2 is given
   if(ball.isOffScreenLeft()){
     p2.setNum(num2);
-    num2 = p2.getNum()+1; //increment score by 1
+    int temp;
+    temp = Integer.parseInt(p2.getNum())+1; //increment score by 1
+    num2 = Integer.toString(temp);
+   if (temp == 11){ //CHANGED if player 2 gets 10 points, he/she wins
+     num2 = "WINNER"; //change text to show winner
+     p2.setNum(num2);
+     p2.getNum();
+     p2.setX(258); //reposition text to center
+     p2.getX();
+     ball.stop(); //game ends, so ball stops moving
+   }
+  }
+  
+  //CHANGED Display message saying game has ended 
+  if (ball.getSpeed() <= 1){
+     textSize(35);
+     fill(255);
+     text("GAME OVER",247,50);
   }
   
   // Check if the ball has collided with either paddle
