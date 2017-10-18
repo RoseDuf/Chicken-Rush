@@ -10,6 +10,11 @@ float r3 = random(0,255);
 
 float xline;
 float yline;
+float hline;
+float zline;
+float qline;
+float wline;
+
 //CHANGED Variables for fireworks when player wins
 int NUM = 40;
 PVector[] position;
@@ -81,28 +86,72 @@ void draw() {
   // Fill the background each frame so we have animation
   background(backgroundColor);
   
-  //CHANGED added a retro green gridded lines in the back ground
+  //CHANGED added colored gridded lines in the background
   //lines on x axis
-  for(int i=1; i<=20;i++){ //number of lines that are drawn (20)
+  for(int i=1; i<=10;i++){ //number of lines that are drawn (20)
   float ran1 = random(1,100); 
-  stroke(0,100,0); //green
-  line(xline,0,xline,height); //draw line
+  float r1 = random(200,255);
+  float r2 = random(0,255);
+  float r3 = random(0,255);
+  
+  stroke(r1,r2,r3); //random colors
+  line(0,xline,xline,height); //draw line
   xline=xline+ran1; //change position of line in x at random speed
   
-    if(xline>width){ //when line reaches edges, it resets
+    if(xline>height){ //when line reaches edges, it resets
     xline=0;
     }
   }
   
   //lines on y axis
-  for(int i=1; i<=20;i++){ //number on lines that are drawn (20)
+  for(int i=1; i<=10;i++){ //number on lines that are drawn (20)
   float ran1 = random(1,100);
-  stroke(0,100,0); //green
-  line(0,yline,width,yline); //draw line
+  float r1 = random(200,255);
+  float r2 = random(0,255);
+  float r3 = random(0,255);
+  
+  stroke(r1,r2,r3); //random colors
+  line(yline,0,width,yline); //draw line
   yline=yline+ran1; //change position of line in y at random speed
   
-    if(yline>height){ //when line reaches edge, it resets
+    if(yline>width){ //when line reaches edge, it resets
     yline=0;
+    }
+  }
+  
+  for(int i=1; i<=10;i++){ //number on lines that are drawn (20)
+  float ran1 = random(1,100);
+  float r1 = random(0,255);
+  float r2 = random(150,255);
+  float r3 = random(150,255);
+  
+  stroke(r1,r2,r3); //random colors
+  line(zline,height,width,hline); //draw line
+  zline=zline+ran1;
+  hline=hline-ran1; //change position of line in y at random speed
+  
+   
+    if(hline<0 && zline>width){ //when line reaches edge, it resets
+    hline= height;
+    zline = 0;
+    }
+  }
+  
+  for(int i=1; i<=10;i++){ //number on lines that are drawn (20)
+  float ran1 = random(1,100);
+  float r1 = random(0,255);
+  float r2 = random(150,255);
+  float r3 = random(150,255);
+  
+  stroke(r1,r2,r3); //random colors
+  line(0,qline,wline,0); //draw line
+  wline=wline+ran1;
+  qline=qline-ran1; //change position of line in y at random speed
+  
+   
+    if(qline<0 && wline>width){ //when line reaches edge, it resets
+    qline= width;
+    wline = 0;
     }
   }
 

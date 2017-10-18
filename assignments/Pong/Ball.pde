@@ -120,6 +120,7 @@ class Ball {
       if (vx < 0) {
         // Reset its position to awlign with the right side of the paddle
         x = paddle.x + paddle.WIDTH/2 + size/2;
+      
       } else if (vx > 0) {
         // Reset its position to align with the left side of the paddle
         x = paddle.x - paddle.WIDTH/2 - size/2;
@@ -136,7 +137,12 @@ class Ball {
   void display() {
     // Set up the appearance of the ball (no stroke, a fill, and rectMode as CENTER)
     noStroke();
-    fill(ballColor);
+    if(vx>0){
+    fill(255,160,122);
+    }
+    else {
+    fill(135,206,235);
+    }
     rectMode(CENTER);
 
     // Draw the ball
