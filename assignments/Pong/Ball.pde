@@ -61,6 +61,15 @@ class Ball {
     // First update the location based on the velocity (so the ball moves)
     x += vx;
     y += vy;
+    
+    //CHANGED For easier gaming experience feel free to revert ball movement to 
+    //normal, especially to be able to see the counter in action
+    /*
+    // Check if the ball is going off the top of bottom
+    if (y - SIZE/2 < 0 || y + SIZE/2 > height) {
+    // If it is, then make it "bounce" by reversing its velocity
+      vy = -vy;
+    }*/
    
    //CHANGED made ball move in random ocillary directions in x and y
     if (x < width/2) {
