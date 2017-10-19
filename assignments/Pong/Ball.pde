@@ -8,16 +8,16 @@ class Ball {
   /////////////// Properties ///////////////
 
   // Default values for speed and size
-  int speed = 5;
+  int speed = 1;
   int size = 16;
 
   // The location of the ball
-  int x;
-  int y;
+  float x;
+  float y;
 
   // The velocity of the ball
-  int vx;
-  int vy;
+  float vx;
+  float vy;
 
   // The colour of the ball
   color ballColor = color(255);
@@ -34,7 +34,7 @@ class Ball {
   // NOTE that I'm using an underscore in front of the arguments to distinguish
   // them from the class's properties
 
-  Ball(int _x, int _y) {
+  Ball(float _x, float _y) {
     x = _x;
     y = _y;
     vx = speed;
@@ -61,12 +61,45 @@ class Ball {
     // First update the location based on the velocity (so the ball moves)
     x += vx;
     y += vy;
-
-    // Check if the ball is going off the top of bottom
-    if (y - size/2 < 0 || y + size/2 > height) {
-      // If it is, then make it "bounce" by reversing its velocity
-      vy = -vy;
+   
+    if (x < width/2) {
+      vx = vx+floor(random(5,15));
+      vx = constrain(vx, -100, 100);
     }
+    
+    else if (x > width/2) {
+      vx = vx-floor(random(5,15));
+      vx = constrain(vx, -100, 100);
+     }
+    if (y < height/2) {
+      vy = vy+floor(random(5,15));
+      vy = constrain(vy, -100, 100);
+    }
+    
+    else if (y > height/2) {
+      vy = vy-floor(random(5,15));
+      vy = constrain(vy, -100, 100);
+     }
+  }
+  void update2(){
+    if (x < width/2) {
+      vx = vx+floor(random(5, 10));
+      vx = constrain(vx, -50, 50);
+    }
+    
+    else if (x > width/2) {
+      vx = vx-floor(random(5, 15));
+      vx = constrain(vx, -50, 50);
+     }
+    else if (y < height/2) {
+      vy = vy+floor(random(5, 10));
+      vy = constrain(vy, -50, 50);
+    }
+    
+    else if (y > height/2) {
+      vy = vy-floor(random(5, 15));
+      vy = constrain(vy, -50, 50);
+     }
   }
   
   // reset()
@@ -100,6 +133,12 @@ class Ball {
   boolean isOffScreenLeft(){
     return (x + size/2 < 0);
   }
+  boolean isOffScreenTop(){
+    return (y - size/2 > height);
+  }
+  boolean isOffScreenBottom(){
+    return (y - size/2 < 0);
+  }
 
   // collide(Paddle paddle)
   //
@@ -115,7 +154,7 @@ class Ball {
     boolean insideBottom = (y - size/2 < paddle.y + paddle.HEIGHT/2);
     
     // Check if the ball overlaps with the paddle
-    if (insideLeft && insideRight && insideTop && insideBottom) {
+    if (insideLeft && insideRight && insideTop && insideBottom){
       // If it was moving to the left
       if (vx < 0) {
         // Reset its position to awlign with the right side of the paddle
@@ -129,6 +168,27 @@ class Ball {
       vx = -vx;
     }
   }
+  
+  //CHANGED added collision function for the top and bottom paddles
+  void collide2(Paddle2 square){
+    
+    boolean inLeft = (x + size/2 > square.x - square.WIDTH/2);
+    boolean inRight = (x - size/2 < square.x + square.WIDTH/2);
+    boolean inTop = (y + size/2 > square.y - square.HEIGHT/2);
+    boolean inBottom = (y - size/2 < square.y + square.HEIGHT/2);
+    
+    if (inLeft && inRight && inTop && inBottom){
+      if (vy < 0) {
+        // Reset its position to awlign with the right side of the paddle
+        y = square.y + square.WIDTH/2 + size/2;
+      
+      } else if (vy > 0) {
+        // Reset its position to align with the left side of the paddle
+        y = square.y - square.WIDTH/2 - size/2;
+      }
+      vy = -vy;
+    }
+  }
 
   // display()
   //
@@ -137,12 +197,15 @@ class Ball {
   void display() {
     // Set up the appearance of the ball (no stroke, a fill, and rectMode as CENTER)
     noStroke();
+    
+    //CHANGED color of ball changes to the color of the paddle it hits
     if(vx>0){
-    fill(255,160,122);
+    fill(255,99,71); //red
     }
     else {
-    fill(135,206,235);
+    fill(65,105,225); //blue
     }
+    
     rectMode(CENTER);
 
     // Draw the ball
