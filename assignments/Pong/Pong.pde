@@ -4,12 +4,6 @@
 // Allows to people to bounce a ball back and forth between
 // two paddles that they control.
 
-  float theta = 0.0;
-  float amplitude = 75.0;
-  float period = 400.0;
-  float dx;
-  float[] yvalues;
-
 //CHANGED variables for random colors
 float r1 = random(0,255);
 float r2 = random(0,255);
@@ -48,7 +42,7 @@ color p2color = color(65,105,225);
 int PADDLE_INSET = 8;
 
 // The background colour during play (black)
-color backgroundColor = color(0);
+color backgroundColor = color(20);
 
 
 // setup()
@@ -57,8 +51,6 @@ color backgroundColor = color(0);
 void setup() {
   // Set the size
   size(640, 480);
-  
-  dx = (TWO_PI/period);
 
     //CHANGED added setup for fireworks when player wins
     position = new PVector[NUM];
@@ -94,19 +86,7 @@ void setup() {
   p2 = new Score(num2,309,280, p2color);
 }
 
-void calcWave(){
-  // Increment theta (try different values for 'angular velocity' here
-  theta += 0.02;
-
-  // For every x value, calculate a y value with sine function
-  float x = theta;
-  for (int i = 0; i < yvalues.length; i++) {
-    ball.y = sin(x)*amplitude;
-  }
-}
-
 // draw()
-//
 // Handles all the magic of making the paddles and ball move, checking
 // if the ball has hit a paddle, and displaying everything.
 
@@ -211,6 +191,7 @@ void draw() {
   leftPaddle.update();
   rightPaddle.update();
   
+  //CHANGED update new paddles
   topPaddle.update();
   downPaddle.update();
   
@@ -275,7 +256,8 @@ void draw() {
   leftPaddle.display();
   rightPaddle.display();
   
-  topPaddle.display();
+  //CHANGED display new paddles
+  topPaddle.display(); 
   downPaddle.display();
   
   ball.display();

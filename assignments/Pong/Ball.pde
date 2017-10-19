@@ -62,43 +62,24 @@ class Ball {
     x += vx;
     y += vy;
    
+   //CHANGED made ball move in random ocillary directions in x and y
     if (x < width/2) {
-      vx = vx+floor(random(5,15));
+      vx = vx+floor(random(1,5));
       vx = constrain(vx, -100, 100);
     }
     
     else if (x > width/2) {
-      vx = vx-floor(random(5,15));
+      vx = vx-floor(random(1,5));
       vx = constrain(vx, -100, 100);
      }
     if (y < height/2) {
-      vy = vy+floor(random(5,15));
+      vy = vy+floor(random(1,5));
       vy = constrain(vy, -100, 100);
     }
     
     else if (y > height/2) {
-      vy = vy-floor(random(5,15));
+      vy = vy-floor(random(1,5));
       vy = constrain(vy, -100, 100);
-     }
-  }
-  void update2(){
-    if (x < width/2) {
-      vx = vx+floor(random(5, 10));
-      vx = constrain(vx, -50, 50);
-    }
-    
-    else if (x > width/2) {
-      vx = vx-floor(random(5, 15));
-      vx = constrain(vx, -50, 50);
-     }
-    else if (y < height/2) {
-      vy = vy+floor(random(5, 10));
-      vy = constrain(vy, -50, 50);
-    }
-    
-    else if (y > height/2) {
-      vy = vy-floor(random(5, 15));
-      vy = constrain(vy, -50, 50);
      }
   }
   
@@ -178,14 +159,15 @@ class Ball {
     boolean inBottom = (y - size/2 < square.y + square.HEIGHT/2);
     
     if (inLeft && inRight && inTop && inBottom){
-      if (vy < 0) {
-        // Reset its position to awlign with the right side of the paddle
-        y = square.y + square.WIDTH/2 + size/2;
+      if (vy > 0) {
+        // Reset its position to awlign with the top side of the paddle
+        y = square.y + square.HEIGHT/2 + size/2;
       
-      } else if (vy > 0) {
-        // Reset its position to align with the left side of the paddle
-        y = square.y - square.WIDTH/2 - size/2;
+      } else if (vy < 0) {
+        // Reset its position to align with the bottom side of the paddle
+        y = square.y - square.HEIGHT/2 - size/2;
       }
+      //make it bounce
       vy = -vy;
     }
   }
