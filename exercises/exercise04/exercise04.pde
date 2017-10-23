@@ -11,6 +11,9 @@ int gridSize = 20;
 // An array storing all the griddies
 Griddie[] griddies = new Griddie[100];
 
+//CHANGED create Creature array
+Creature[] creature = new Creature[100];
+
 // setup()
 // Set up the window and the griddies
 
@@ -28,10 +31,14 @@ void setup() {
     griddies[i] = new Griddie(x * gridSize, y * gridSize, gridSize); //*20 so that the squares are
     //always 20 pixels appart from eachother
   }
+   for (int i = 0; i < griddies.length; i++) {
+    int x = floor(random(0, width/10)); //position x at random number between 0 to 320
+    int y = floor(random(0, height/10));
+    creature[i] = new Creature(x * gridSize, y * gridSize, 10);
+   }
 }
 
 // draw()
-//
 // Update all the griddies, check for collisions between them, display them.
 
 void draw() {
@@ -42,6 +49,9 @@ void draw() {
 
     // Update the griddies
     griddies[i].update();
+    
+    //CHANGED update creatures
+    creature[i].update();
 
     // Now go through all the griddies a second time...
     for (int j = 0; j < griddies.length; j++) {
@@ -53,10 +63,16 @@ void draw() {
         // QUESTION: What does this line check?
         //apply the conditions from the method "collide" to all squares that aren't the square i
         griddies[i].collide(griddies[j]);
+        
+        //CHANGED behaviour when creature collides with griddies
+        creature[i].collide(griddies[j]);
       }
-    }
-    
-    // Display the griddies
+      
     griddies[i].display();
+    
+    //CHANGED display creatures
+    creature[i].display();
+  
+    }
   }
 }

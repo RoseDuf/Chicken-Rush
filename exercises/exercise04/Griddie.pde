@@ -16,10 +16,12 @@ class Griddie {
   int y;
   int size;
   int energy;
-  color fill = color(255,0,0);
+  //CHANGED 3 filling integers to allow the color to change
+  int fill1 = 255;
+  int fill2 = 0;
+  int fill3 = 0;
 
   // Griddie(tempX, tempY, tempSize)
-  //
   // Set up the Griddie with the specified location and size
   // Initialise energy to the maximum
   Griddie(int tempX, int tempY, int tempSize) {
@@ -104,6 +106,8 @@ class Griddie {
     }
   }
 
+
+
   // display()
   // Draw the Griddie on the screen as a rectangle
   void display() {
@@ -111,7 +115,7 @@ class Griddie {
     //the color of the square is (255,0,0) and its opacity is determined by
     //the varible "energy"'s behaviour within the code. Essentially, the opacity 
     //will decrease if a square doesn't collide with another. 
-    fill(fill, energy); 
+    fill(fill1,fill2,fill3, energy); 
     noStroke();
     rect(x, y, size, size);
   }
