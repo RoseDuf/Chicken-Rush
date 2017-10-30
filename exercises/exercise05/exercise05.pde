@@ -3,10 +3,20 @@
 //producing columns of rectangles of different colours
 //using the noise function
 
+float[] arrcol;
+
 //setup
 void setup(){
   background(20);
   size(640, 480);
+  
+  //create a range of colors for the rectangles
+  arrcol = new float[32];
+  
+  for(int i=0; i<arrcol.length; i++){
+    arrcol[i] = 0+i*255/arrcol.length; //255/32 colors
+  }
+  
 }
 
 //variable for noise function
@@ -25,16 +35,9 @@ void draw() {
   //creating rectangles
   for (int i=0; i < n; i=20+i){
     
-    float col = 100;
-    if (i>=20){
-      fill(col+20,0,0);
-    }
-    if (i>=40){
-      fill(col+20,0,0);
-    }
-    if (i>=60){
-      fill(col+20,0,0);
-    }
+    //fill in the rectangles using the array of colors
+    fill(120, 0 ,arrcol[floor(i/20)]);
+    
     rect(i, 0, 20, height);
     
       }
