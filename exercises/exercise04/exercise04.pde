@@ -64,6 +64,8 @@ void draw() {
         //apply the conditions from the method "collide" to all squares that aren't the square i
         griddies[i].collide(griddies[j]);
         
+        //griddies[i].birth(griddies[j]);
+        
         //CHANGED behaviour when creature collides with griddies
         creature[i].collide(griddies[j]);
       }

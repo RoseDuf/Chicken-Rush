@@ -107,6 +107,18 @@ class Griddie {
   }
 
 
+ /* void birth (Griddie other){
+    
+    if ((x == other.x)||(y == other.y)){
+    if ((energy >= 200)||(other.energy >=200)){
+      for (int i = 0; i < griddies.length; i++) {
+       //position y at random number between 0 to 240
+      griddies[i] = new Griddie(x * gridSize, y * gridSize, gridSize);
+      }
+    }
+    }
+    
+  }*/
 
   // display()
   // Draw the Griddie on the screen as a rectangle
