@@ -12,8 +12,7 @@
 
 import processing.sound.*;
 
-
-//int prevRect = -1;
+int prevRect = -1;
 float[] arrcol;
 SoundFile [] note;
 
@@ -68,13 +67,20 @@ void draw() {
 
     rect(i, 0, 20, height);
 
-    
+    //if there is a new rectangle that is added from the noise function, 
+    //a new piano key will play
+    if (i > prevRect) {
+      int index = i/20;
+      index = constrain(index, 0, 30);
+      note[index].play();
+      println(index);
+    }
   }
 
   prevRect = n;
 }
 
-//test to see if note works
+
 void keyPressed(){
 note[20].play();
 }
