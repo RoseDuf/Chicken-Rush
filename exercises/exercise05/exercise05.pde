@@ -20,14 +20,14 @@ void setup(){
 }
 
 //variable for noise function
-float xoff = 0.00;
+float xoff = 0.0;
 
 //the draw function
 void draw() {
   background(20);
   //noise
-  xoff = xoff + .03;
-  float n = noise(xoff) * width;
+  xoff = xoff + .05;
+  float n = noise(xoff) * mouseX *1.1;
   
   //white edges for each rectangle
   stroke(255);
