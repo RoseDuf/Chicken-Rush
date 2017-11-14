@@ -15,6 +15,8 @@ import processing.sound.*;
 int prevRect = -1;
 float[] arrcol;
 SoundFile [] note;
+SoundFile bell1;
+SoundFile bell2;
 
 //setup
 void setup() {
@@ -36,6 +38,10 @@ void setup() {
     firstnum++;
     endnum++;
   }
+  
+  //load in bell sounds
+  bell1 = new SoundFile(this, "bell-ring-01.wav");
+  bell2 = new SoundFile(this, "small-bell-ring-01a");
 
   //create a range of colors for the rectangles
   arrcol = new float[32];
@@ -52,7 +58,7 @@ float xoff = 0.0;
 void draw() {
   background(20);
   //noise
-  xoff = xoff + .02;
+  xoff = xoff + .10;
   int n = (int) (noise(xoff) * mouseX *1.1);
  // n = constrain(n, 0, width/20);
 
@@ -82,5 +88,15 @@ void draw() {
 
 
 void keyPressed(){
-note[20].play();
+  
+  //if key is pressed the piano notes will change to bells
+ /* for (int i=0; i < note.length ; i++){
+    if (i/2 == 0){
+      note[i] = bell1;
+    }
+    else{
+      note[i] = bell2; 
+    } 
+  }*/
+  
 }
