@@ -22,11 +22,13 @@ class Bouncer {
 
   // The default fill colour of the Bouncer
   color defaultColor;
+  
+  //varibles for rotate
+  float theta = 0;
+  boolean[] keys = new boolean[1]; //stick with 1 key for now
 
   // Bouncer(tempX,tempY,tempVX,tempVY,tempSize,tempDefaultColor)
-  //
   // Creates a Bouncer with the provided values by remembering them.
-
   Bouncer(float _x, float _y, float _vx, float _vy, float tempSize, color tempDefaultColor) {
     x = _x;
     y = _y;
@@ -76,5 +78,44 @@ class Bouncer {
     noStroke();
     fill(defaultColor);
     ellipse(location.x, location.y, size, size);
+    
+    if (keyPressed){
+      simulate();
+      renderTrue();
+    }
   }
+  
+  //rotation
+  void simulate(){
+    theta+=(keys[0]?0.5:0);
+    theta%=TWO_PI;
+  }
+  
+  void renderTrue(){
+    velocity.x = 0;
+    velocity.y = 0;
+    
+    translate(location.x,location.y);
+    rotate(theta);
+  }
+  
+  
+  //if key pressed bouncer will stop moving and rotate on itself
+  void keyPressed(){ handleKeys(true); }
+  
+  //if key released, bouncer will stop rotating and move at given velocity
+  void keyReleased(){ handleKeys(false); }
+  
+  //method to organise the different keys i'll use for the game (only space bar so far)
+  void handleKeys(boolean b){
+    
+    if (b){
+      if (key == ' '){
+        keys[0] = b;
+      }
+    }
+  }
+  
+  
+  
 }
