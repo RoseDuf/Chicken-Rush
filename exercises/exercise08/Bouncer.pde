@@ -79,24 +79,27 @@ class Bouncer {
     fill(defaultColor);
     ellipse(location.x, location.y, size, size);
     
+    render();  
+  }
+  
+  void render(){
+    //keyPressed
     if (keyPressed){
-      simulate();
-      renderTrue();
-    }
-  }
-  
-  //rotation
-  void simulate(){
-    theta+=(keys[0]?0.5:0);
+    theta+=(keys[0]?0.5:0); //rotation
     theta%=TWO_PI;
-  }
-  
-  void renderTrue(){
-    velocity.x = 0;
+    
+    velocity.x = 0; //stop moving
     velocity.y = 0;
     
     translate(location.x,location.y);
     rotate(theta);
+    }
+    //keyreleased
+    else {
+      theta = 0; //stop rotating
+      velocity.x = vx; //give back velocity
+      velocity.y = vy; //(not working for some reason???)
+    }
   }
   
   
