@@ -43,7 +43,7 @@ class Bouncer {
   void update() {
     
     location.add(velocity);
-    
+    handleBounce();
     
   }
 
