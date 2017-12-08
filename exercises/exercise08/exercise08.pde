@@ -6,19 +6,19 @@
 
 color backgroundColor = color(200,150,150); //pink background
 
-Bouncer bouncer;
+Chicken chicken;
 
  //setup() function
  void setup(){
    size(640,480);
-   bouncer = new Bouncer(width/2, height/2, 2, 2, 50, color (150,0,0));
+   chicken = new Chicken(width/2, height/2, 7, 25, color (150,0,0));
  }
  
  //draw() function
  void draw(){
    background(backgroundColor);
-   bouncer.update();
-   bouncer.display(); 
+   chicken.update();
+   chicken.display(); 
  }
  
  
