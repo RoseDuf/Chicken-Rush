@@ -6,9 +6,6 @@
 
 class Chicken {
   
-  //chicken image
-  PImage img;
-  
   //varibles to let you choose the initial location and speed of the chicken
   float x;
   float y;
@@ -26,12 +23,11 @@ class Chicken {
 
   // Chicken(tempX,tempY,tempSpeed,tempSize,tempDefaultColor)
   // Creates a Chicken with the provided values by remembering them.
-  Chicken(float _x, float _y, float tempSpeed, float tempSize, color tempDefaultColor) {
+  Chicken(float _x, float _y, float tempSpeed, float tempSize) {
     x = _x;
     y = _y;
     speed = tempSpeed;
     size = tempSize;
-    defaultColor = tempDefaultColor;
   }
   
   //getters and setters
@@ -51,7 +47,7 @@ class Chicken {
   // Adds the chicken's current velocity to its position
   void update() {
     if(!keyPressed){
-    theta += 0.15;
+    theta += 0.1;
     }
     
     //rotate object
@@ -64,7 +60,6 @@ class Chicken {
   // handleBounce()
   // Checks if the chicken is overlapping a side of the window
   // and if so reverses its speed appropriately
-
   void handleBounce() {
     // Check the left and right
     if (x - size/2 < 0 || x + size/2 > width) {
@@ -88,18 +83,24 @@ class Chicken {
   // and with its fill
   void display(){
     
-    pushMatrix();
     translate(x, y);
     rotate(theta);
     
-    noStroke();
-    fill(defaultColor);
-    ellipse(size, 0, size, size);
-    stroke(0);
-    line (size,0 ,size , size/2);
+    //animate chicken
+    if (millis() - firstTime >= ANIMATION_SPEED) {
+      
+    //Increment n, then compute its modulo
+    //this will switch from the first image to the second
+    n = ++n % img.length;
+    firstTime = millis();
+    }
     
-    popMatrix();
+    //display image
+    scale(1,-1); //put image upside down (otherwise chicken goes backwards)
+    imageMode(CENTER);
+    image(img[n],size,0,size,size);
   }
+  
   //if key pressed chicken will stop moving and rotate on itself
   void keyPressed(){ 
     if(keyCode == UP){

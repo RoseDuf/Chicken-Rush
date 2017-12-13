@@ -4,15 +4,31 @@
 
 //starting with one chicken
 
-color backgroundColor = color(200,150,150); //pink background
+color backgroundColor = color(150,200,0); //pink background
+
+//chicken attributes for constructor
 float speed = 5;
+
+//chicken image
+int frame = 2; //how many images
+PImage [] img = new PImage[frame];
+int n; //counter that starts at 0
+final int ANIMATION_SPEED = 170; //= .17 seconds
+int firstTime; //When the current image was first displayed
+ 
 
 Chicken chicken;
 
  //setup() function
  void setup(){
+   
+   img[0] = loadImage("chicken1.png");
+   img[1] = loadImage("chicken2.png");
+   
+   firstTime = millis();
+   
    size(640,480);
-   chicken = new Chicken(width/2, height/2, speed, 25, color (150,0,0));
+   chicken = new Chicken(width/2, height/2, speed, 40);
  }
  
  //draw() function
