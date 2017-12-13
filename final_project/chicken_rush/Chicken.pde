@@ -6,20 +6,23 @@
 
 class Chicken {
   
-  //varibles to let you choose the initial location and speed of the bouncers
+  //chicken image
+  PImage img;
+  
+  //varibles to let you choose the initial location and speed of the chicken
   float x;
   float y;
   float speed;
-  float defaultSpeed = 0;
 
-  // The size of the Bouncer
+  // The size of the Chicken
   float size;
 
-  // The default fill colour of the Bouncer
+  // The default fill colour of the Chicken
   color defaultColor;
   
   //varibles for rotate
-  float theta = 0;
+  float theta = PI/2;
+  float defaultSpeed = 0;
 
   // Chicken(tempX,tempY,tempSpeed,tempSize,tempDefaultColor)
   // Creates a Chicken with the provided values by remembering them.
@@ -41,18 +44,21 @@ class Chicken {
   float getSpeed(){return speed;}
   void setSpeed(float _speed){speed = _speed;}
   
+  float getDefaultSpeed(){return defaultSpeed;}
+  void setDefaultSpeed(float ds){defaultSpeed = ds;}
 
   // update()
   // Adds the chicken's current velocity to its position
   void update() {
     if(!keyPressed){
-    theta += 0.1;
+    theta += 0.15;
     }
     
     //rotate object
-    x += cos(theta +PI/2) * speed;
-    y += sin(theta +PI/2) * speed;
+    x += cos(theta +PI/2) * defaultSpeed;
+    y += sin(theta +PI/2) * defaultSpeed;
     handleBounce();
+    
   }
 
   // handleBounce()
@@ -63,13 +69,13 @@ class Chicken {
     // Check the left and right
     if (x - size/2 < 0 || x + size/2 > width) {
       // Bounce on the x-axis
-      speed = speed * -1;
+      defaultSpeed = defaultSpeed * -1;
     }
 
     // Check the top and bottom
     if (y - size/2 < 0 || y + size/2 > height) {
       // Bounce on the y-axis
-      speed = speed * -1;
+      defaultSpeed = defaultSpeed * -1;
     }
 
     // Make sure the chicken isn't off the edge
@@ -81,6 +87,7 @@ class Chicken {
   // Draw an ellipse in the Chicken's location, with its size
   // and with its fill
   void display(){
+    
     pushMatrix();
     translate(x, y);
     rotate(theta);
@@ -93,18 +100,18 @@ class Chicken {
     
     popMatrix();
   }
-  
   //if key pressed chicken will stop moving and rotate on itself
   void keyPressed(){ 
     if(keyCode == UP){
-     speed = 7;
+     defaultSpeed = speed;
     }
   }
   
   //if key released, chicken will stop rotating and move at given speed
   void keyReleased(){
-    if (keyCode == UP) {
+    if (keyCode == UP){
     defaultSpeed = 0;
     }
   }
+ 
 }
