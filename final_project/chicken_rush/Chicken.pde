@@ -10,6 +10,7 @@ class Chicken {
   float x;
   float y;
   float speed;
+  PImage [] imgarr;
 
   // The size of the Chicken
   float size;
@@ -21,13 +22,14 @@ class Chicken {
   float theta = PI/2;
   float defaultSpeed = 0;
 
-  // Chicken(tempX,tempY,tempSpeed,tempSize,tempDefaultColor)
+  // Chicken(tempX,tempY,tempSpeed,tempSize,tempImage)
   // Creates a Chicken with the provided values by remembering them.
-  Chicken(float _x, float _y, float tempSpeed, float tempSize) {
+  Chicken(float _x, float _y, float tempSpeed, float tempSize, PImage[] _imgarr) {
     x = _x;
     y = _y;
     speed = tempSpeed;
     size = tempSize;
+    imgarr = _imgarr;
   }
   
   //getters and setters
@@ -46,7 +48,7 @@ class Chicken {
   // update()
   // Adds the chicken's current velocity to its position
   void update() {
-    if(!keyPressed){
+    if(defaultSpeed == 0){
     theta += 0.1;
     }
     
@@ -82,6 +84,7 @@ class Chicken {
   // Draw an ellipse in the Chicken's location, with its size
   // and with its fill
   void display(){
+    pushMatrix();
     translate(x, y);
     rotate(theta);
     
@@ -90,28 +93,25 @@ class Chicken {
       
     //Increment n, then compute its modulo
     //this will switch from the first image to the second
-    n = ++n % img.length;
+    n = ++n % imgarr.length;
     firstTime = millis();
     }
     
     //display image
     scale(1,-1); //put image upside down (otherwise chicken goes backwards)
     imageMode(CENTER);
-    image(img[n],size,0,size,size);
+    image(imgarr[n],size,0,size,size);
+    popMatrix();
   }
   
   //if key pressed chicken will stop moving and rotate on itself
   void keyPressed(){ 
-    if(keyCode == UP){
      defaultSpeed = speed;
-    }
   }
   
-  //if key released, chicken will stop rotating and move at given speed
+  
   void keyReleased(){
-    if (keyCode == UP){
     defaultSpeed = 0;
-    }
   }
  
 }

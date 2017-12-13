@@ -14,6 +14,7 @@ class Seeds{
   float x = random(0,640);
   float y = random(0,480);
   int size;
+  
   //speed of seed generation
   float generateSpeed;
   

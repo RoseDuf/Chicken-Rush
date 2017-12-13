@@ -13,12 +13,12 @@ PImage seeds;
 int seedSize = 20;
 ArrayList <Seeds> multSeeds = new ArrayList(); //number of seeds generated at a time
 
-int INTERVAL = 5000; // = 5 seconds
+int INTERVAL = 6500; // = 6.5 seconds interval for deletion of seed
+float interval2 = 5000; // = 5 seconds intervel for creation of seed
+int INTERVAL3 = 10000; // = 10 second interval for increase generation of seed
 
-
-int INTERVAL2 = 3000; // = 3 seconds
 int nextSeed; //speed increases at each level
-
+int newSpeed; //generation speed
 
 //chicken attributes for constructor
 float speed = 5;
@@ -26,13 +26,19 @@ float speed = 5;
 //chicken image
 int frame = 2; //how many images
 PImage [] img = new PImage[frame];
+PImage [] img2 = new PImage[frame];
+
 int n; //counter that starts at 0
-int a = 8; //nbr os seeds starts at 2, goes all the way to 10 by decrementing a
 final int ANIMATION_SPEED = 170; //= .17 seconds
 int firstTime; //When the current image was first displayed
  
+Chicken chicken1;
+Chicken chicken2;
 
-Chicken chicken;
+//timer variables
+Timer t;
+
+Timer timer;
 
  //setup() function
  void setup(){
@@ -46,48 +52,81 @@ Chicken chicken;
    seeds = loadImage("seed.png");
    
    //generate seed
-   
    multSeeds.add(new Seeds(seedSize));
    
    //chicken setup
    img[0] = loadImage("chickenw1.png");
    img[1] = loadImage("chickenw2.png");
+   img2[0] = loadImage("chicken1.png");
+   img2[1] = loadImage("chicken2.png");
   
    //attribute timer to first occurence of image
    firstTime = millis();
    
-   chicken = new Chicken(100, 380, speed, 40);
+   chicken1 = new Chicken(100, 380, speed, 40, img);
+   chicken2 = new Chicken(540, 380, speed, 40, img2);
+   timer = new Timer();
+   
+   //timer setup
+   t = new Timer();
+   t.startTimer();
+   
+   
  }
  
  //draw() function
  void draw(){
+   //background
    image(grass,0,0);
    
-   
     //seed behaviour
-    if (millis() - nextSeed > INTERVAL2){
-      if (multSeeds.size() <10){
-      multSeeds.add(new Seeds(seedSize));
-      }
-    nextSeed = millis();
+    
+   if (millis() - nextSeed > interval2){
+     if (multSeeds.size() <100){
+       multSeeds.add(new Seeds(seedSize));
+     }
+     if (millis() - newSpeed > INTERVAL3){
+       newSpeed = millis();
+       interval2 = interval2/(1.5);
+     }
+   nextSeed = millis();
    }
+
+   //go through arrayList to display and update
    for (int i=multSeeds.size()-1; i>=0; i--){
-   multSeeds.get(i).update();
-    multSeeds.get(i).display();
+     multSeeds.get(i).update();
+     multSeeds.get(i).display();
    }
     
    //chicken behaviour
-   chicken.update();
-   chicken.display(); 
+   chicken1.update();
+   chicken1.display(); 
+   chicken2.update();
+   chicken2.display();
+   
+   //timer behaviour
+   timer.displayTimer();
+   
+   
  }
- 
+ //if key pressed chicken will stop moving and rotate on itself
  void keyPressed(){ 
-  
-    chicken.keyPressed();
+    if(keyCode == SHIFT){
+       chicken1.keyPressed();
+    }
+    else if(keyCode == UP){
+       chicken2.keyPressed();
+    }
   }
   
-    void keyReleased(){
-        chicken.keyReleased();
+  //if key released, chicken will stop rotating and move at given speed
+  void keyReleased(){
+    if(keyCode == SHIFT){
+       chicken1.keyReleased();
+    }
+    else if(keyCode == UP){
+       chicken2.keyReleased();
+    }
 
   }
  
