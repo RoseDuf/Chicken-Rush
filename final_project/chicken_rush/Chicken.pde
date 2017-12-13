@@ -82,7 +82,6 @@ class Chicken {
   // Draw an ellipse in the Chicken's location, with its size
   // and with its fill
   void display(){
-    
     translate(x, y);
     rotate(theta);
     

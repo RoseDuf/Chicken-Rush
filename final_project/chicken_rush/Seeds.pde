@@ -7,16 +7,41 @@
 
 class Seeds{
   
+  int timeSeed;
+  boolean showSeed = true;
+  
   //location variables
-  float seedX;
-  float seedY;
+  float x = random(0,640);
+  float y = random(0,480);
+  int size;
   //speed of seed generation
   float generateSpeed;
   
   //constructor
-  Seeds (float gs){
-    generateSpeed = gs;
+  Seeds (int tempSize){
+    size = tempSize;
+    timeSeed = millis() + INTERVAL;
   }
+  
+  //every given number of seconds, a seed will be generated at a new random location
+  void update(){
+    if (millis() > timeSeed){
+      showSeed = false;
+    }
+    
+    // Make sure the seed isn't off the edge
+    x = constrain(x, size/2, width-size/2);
+    y = constrain(y, size/2, height-size/2);
+  }
+  
+  //diplay the seed
+  void display(){
+    if (showSeed){
+    imageMode(CENTER);
+    image(seeds,x,y,20,20);
+    }
+  }
+  
   
   
   
