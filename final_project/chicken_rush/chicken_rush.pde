@@ -2,7 +2,10 @@
 
 //main class for the chicken game prototype using bouncers
 
-//starting with one chicken
+
+//sound
+//import processing.sound.*;
+//SoundFile ding;
 
 //background attributes
 color backgroundColor = color(150,200,0); //pink background
@@ -45,6 +48,9 @@ Timer t;
  //setup() function
  void setup(){
    size(640,480);
+   
+   //sound setup
+   //ding = new SoundFile(this, "ding.wav");
    
    //background setup
    grass = loadImage("grass.png");
@@ -107,29 +113,32 @@ Timer t;
    for (int i=0; i<=multSeeds.size()-1; i++){
      if ((chicken1.collidesWith(multSeeds.get(i)))||(chicken2.collidesWith(multSeeds.get(i)))){
        print("seed eaten ");
+       //ding.play();
        multSeeds.get(i).showSeed = false;
      }
    }
    
    //collision counter
    for (int i=0; i<=multSeeds.size()-1; i++){
-     if (chicken1.collidesWith(multSeeds.get(i))&&(multSeeds.get(i).showSeed == true)){
-       counter1 += 1;
+     if ((chicken1.collidesWith(multSeeds.get(i)) == true) &&
+         (t.running == true)/*&&(multSeeds.get(i).showSeed)*/){
+       counter1 += 1; //why does this increment so much?!
      }
    }
    textAlign(CENTER);
    textSize(30);
-   text(nf(counter1), 100, 50);
+   text(counter1, 100, 50);
    
    //collision counter
    for (int i=0; i<=multSeeds.size()-1; i++){
-     if (chicken2.collidesWith(multSeeds.get(i))&&(multSeeds.get(i).showSeed == true)){
-       counter2 += 1;
+     if ((chicken2.collidesWith(multSeeds.get(i)) == true) &&
+         (t.running == true)/*&&(multSeeds.get(i).showSeed)*/){
+       counter2 = counter2 + 1; //why does this increment so much?!
      }
    }
    textAlign(CENTER);
    textSize(30);
-   text(nf(counter2), 540, 50);
+   text(counter2, 540, 50);
   
    
    //timer behaviour
