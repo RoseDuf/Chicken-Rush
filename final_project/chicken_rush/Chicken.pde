@@ -104,6 +104,20 @@ class Chicken {
     popMatrix();
   }
   
+  //collide method
+  boolean collidesWith(Seeds seed){
+    
+    float distance = dist(x, y, seed.x, seed.y);
+    float sumRadius = size/2 + (seed.size)/2;
+    
+    if (distance < sumRadius){
+      return true;
+    }
+    else {
+    return false;
+    }
+  }
+  
   //if key pressed chicken will stop moving and rotate on itself
   void keyPressed(){ 
      defaultSpeed = speed;

@@ -35,10 +35,12 @@ int firstTime; //When the current image was first displayed
 Chicken chicken1;
 Chicken chicken2;
 
+//counter variables
+int counter1 = 0;
+int counter2 = 0;
+
 //timer variables
 Timer t;
-
-Timer timer;
 
  //setup() function
  void setup(){
@@ -65,13 +67,10 @@ Timer timer;
    
    chicken1 = new Chicken(100, 380, speed, 40, img);
    chicken2 = new Chicken(540, 380, speed, 40, img2);
-   timer = new Timer();
    
    //timer setup
    t = new Timer();
    t.startTimer();
-   
-   
  }
  
  //draw() function
@@ -93,7 +92,7 @@ Timer timer;
    }
 
    //go through arrayList to display and update
-   for (int i=multSeeds.size()-1; i>=0; i--){
+   for (int i=0; i<=multSeeds.size()-1; i++){
      multSeeds.get(i).update();
      multSeeds.get(i).display();
    }
@@ -104,11 +103,39 @@ Timer timer;
    chicken2.update();
    chicken2.display();
    
+   //collision
+   for (int i=0; i<=multSeeds.size()-1; i++){
+     if ((chicken1.collidesWith(multSeeds.get(i)))||(chicken2.collidesWith(multSeeds.get(i)))){
+       print("seed eaten ");
+       multSeeds.get(i).showSeed = false;
+     }
+   }
+   
+   //collision counter
+   for (int i=0; i<=multSeeds.size()-1; i++){
+     if (chicken1.collidesWith(multSeeds.get(i))&&(multSeeds.get(i).showSeed == true)){
+       counter1 += 1;
+     }
+   }
+   textAlign(CENTER);
+   textSize(30);
+   text(nf(counter1), 100, 50);
+   
+   //collision counter
+   for (int i=0; i<=multSeeds.size()-1; i++){
+     if (chicken2.collidesWith(multSeeds.get(i))&&(multSeeds.get(i).showSeed == true)){
+       counter2 += 1;
+     }
+   }
+   textAlign(CENTER);
+   textSize(30);
+   text(nf(counter2), 540, 50);
+  
+   
    //timer behaviour
-   timer.displayTimer();
-   
-   
+   t.displayTimer();
  }
+ 
  //if key pressed chicken will stop moving and rotate on itself
  void keyPressed(){ 
     if(keyCode == SHIFT){
